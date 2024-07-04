@@ -1,0 +1,52 @@
+.blend_step_card .ant-card-body {
+  height: calc(100% - 96px);
+}
+
+.blend-member .btn-close {
+  opacity: 0;
+}
+
+.blend-member:hover .btn-close {
+  opacity: 1;
+}
+
+.blend_step_card .ant-card-head {
+  border-bottom: 0 !important;
+}
+
+.blend_step_card .ant-card-body {
+  border-top: 1px solid var(--border-line);
+}
+
+.blend_step_card .ant-card-body {
+  padding: 0px !important;
+}
+
+.blend_step_card {
+  background-color: var(--bg-color-primary);
+}
+
+.member-measure .member-icon-edit {
+  display: none;
+}
+
+.member-measure:hover .member-operator {
+  display: none;
+}
+
+.member-measure:hover .member-icon-edit {
+  display: block;
+}
+
+.member-popover .ant-popover-inner {
+  padding: 0px;
+}
+
+.member-popover .ant-popover-title {
+  background-color: #bae0ff;
+  margin-bottom: 0;
+}
+
+.member-popover .ant-popover-inner-content {
+  padding: 8px;
+}

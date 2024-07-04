@@ -1,0 +1,18 @@
+.recharts-tooltip-label {
+  color: var(--tooltip-label-color);
+}
+
+.recharts-default-tooltip {
+  background-color: var(--tooltip-bg-color) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/*  bar char */
+.recharts-tooltip-cursor {
+  fill: var(--color-primary);
+}
+
+/* pie */
+.pie .recharts-tooltip-item {
+  color: var(--tooltip-label-color) !important;
+}

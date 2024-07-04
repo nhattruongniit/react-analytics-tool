@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 127 74" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+  <g>
+    <circle style="fill:url(#diagonalHatchCross);fill-opacity:1;fill-rule:evenodd;stroke:#7AA3DF;stroke-width:1.78981;stroke-miterlimit:4;stroke-dasharray:5,1;stroke-opacity:1" cx="96" cy="37" r="30"></circle>
+    <circle style="fill:url(#diagonalHatchCross);fill-opacity:1;fill-rule:evenodd;stroke:#7AA3DF;stroke-width:1.78981;stroke-miterlimit:4;stroke-dasharray:5,1;stroke-opacity:1" cx="31" cy="37" r="30"></circle>
+  </g>
+  <g>
+    <path style="fill:none;fill-opacity:1;stroke:#7AA3DF;stroke-width:1.78981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 40.783177,50.663309 85.659665,24.347247"></path>
+    <path style="fill:none;fill-opacity:1;stroke:#7AA3DF;stroke-width:1.78981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 85.432569,50.78713 41.091007,24.201239"></path>
+    <path style="fill:none;fill-opacity:1;stroke:#7AA3DF;stroke-width:1.78981;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 88.281455,37.556268 37.583259,37.450021"></path>
+  </g>
+  <pattern id="diagonalHatchCross" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+    <rect x="0" y="0" width="10" height="10" style="fill:#d2e3fc"></rect>
+    <line x1="0" y1="0" x2="0" y2="10" style="stroke:#afccf9; stroke-width:5"></line>
+  </pattern>
+</svg>

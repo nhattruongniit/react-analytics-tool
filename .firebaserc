@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "react-analytics-tool"
+  },
+  "targets": {
+    "react-analytics-tool": {
+      "hosting": {
+        "dev": [
+          "dev-react-analytics-tool"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

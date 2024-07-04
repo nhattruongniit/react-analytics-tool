@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 127 74" fit="" preserveAspectRatio="xMidYMid meet" focusable="false">
+  <g>
+    <circle style="fill:url(#diagonalHatchLeft);fill-rule:evenodd;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:5,1;stroke:#7AA3DF;stroke-opacity:1;fill-opacity:1" cx="37" cy="37" r="35"></circle>
+    <circle style="fill:none;fill-rule:evenodd;stroke-width:2;stroke:#7AA3DF;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:5,1" cx="90" cy="37" r="35"></circle>
+  </g>
+  <pattern id="diagonalHatchLeft" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+    <rect x="0" y="0" width="10" height="10" style="fill:#d2e3fc"></rect>
+    <line x1="0" y1="0" x2="0" y2="10" style="stroke:#afccf9; stroke-width:5"></line>
+  </pattern>
+</svg>

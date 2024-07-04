@@ -1,0 +1,22 @@
+stages:
+  - build
+
+build_dev:
+  only:
+    - develop
+  stage: build
+  image: node:20-alpine
+  environment:
+    name: develop
+  before_script:
+    - npm i -g firebase-tools
+    - cat $ENV_FILE > .env
+    - export GOOGLE_APPLICATION_CREDENTIALS=$SERVICE_ACCOUNT
+    - export NODE_OPTIONS="--max_old_space_size=4096"
+  script:
+    - npm install
+    - rm -rf build
+    - mkdir build
+    - npm run build:develop
+    - firebase use $FIREBASE_HOSTING
+    - firebase deploy --only hosting:dev

@@ -1,0 +1,4 @@
+// FIREBASE CONFIG
+process.env.VITE_FIREBASE_API_KEY = "";
+process.env.VITE_FIREBASE_AUTH_DOMAIN = "";
+process.env.VITE_FIREBASE_PROJECT_ID = "";
