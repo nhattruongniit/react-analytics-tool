@@ -39,7 +39,7 @@ const UkuleleLayout: React.FC<PropsWithChildren> = ({ children }) => {
               minHeight: 280,
               background: "#eeeef5",
             }}
-            className="bg-[#eeeef5] dark:bg-black"
+            className="bg-[#eeeef5] relative dark:bg-black"
           >
             {children}
           </Content>
