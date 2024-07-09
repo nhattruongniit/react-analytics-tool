@@ -86,3 +86,9 @@ export type IMultiStepModal = {
   isOpen: boolean;
   type: TYPE_MODAL;
 };
+
+export type ISchema = {
+  field_type: any;
+  mode: any;
+  name: string;
+};

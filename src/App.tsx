@@ -17,8 +17,7 @@ import { PAGE_URL } from "./config";
 import { AppContextProvider } from "@src/contexts/app-context";
 import { ColorContextProvider } from "@src/contexts/color-context";
 import { MultiStepQueryContextProvider } from "./contexts/multi-step-query-context";
-
-// libs
+import { BlenderContextProvider } from "./contexts/blender-context";
 
 // pages
 import { Dashboard } from "@src/pages/dashboard";
@@ -90,7 +89,14 @@ function App() {
                     </ReactFlowProvider>
                   }
                 />
-                <Route path={PAGE_URL.BLEND_EXPLORER} element={<BlendExplorer />} />
+                <Route
+                  path={PAGE_URL.BLEND_EXPLORER}
+                  element={
+                    <BlenderContextProvider>
+                      <BlendExplorer />
+                    </BlenderContextProvider>
+                  }
+                />
                 <Route path="*" element={<ErrorComponent />} />
               </Route>
 

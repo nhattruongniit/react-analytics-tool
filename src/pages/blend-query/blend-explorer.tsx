@@ -1,15 +1,18 @@
 import React from "react";
 import clsx from "clsx";
-import { Button, Popconfirm, theme, Space, Table, Tag } from "antd";
-import type { TableProps } from 'antd';
+import { Button, Popconfirm, theme, Space, Table, Tag, Form } from "antd";
+import type { TableProps } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 
+// context
+import { DEFAULT_SOURCE, DIMENSIONS, JOINS, SOURCE, useBlenderContext } from "@src/contexts/blender-context";
 
 // components
-import BlendStep from "./components/blend-step";
-import JoinConfiguration from "./components/join-configuration";
-import JoinAnotheStep from "./components/join-another-step";
-import BlendResult from "./components/blend-result";
+import BlendStep from "./components/blend-data/blend-step";
+import JoinAnotheStep from "./components/blend-data/join-another-step";
+import BlendResult from "./components/blend-data/blend-result";
+import JoinConfiguration from "./components/join-configuration/join-configuration";
+import JoinAnotherStepDummy from "./components/blend-data/join-another-step-dummy";
 
 interface DataType {
   key: string;
@@ -17,52 +20,48 @@ interface DataType {
   source: string;
 }
 
-function BlendExplorer() {
-  const { token } = theme.useToken();
-  const [isOpenBlend, setIsOpenBlend] = React.useState(false);
-
-  function openBlendExplorer(isOpen: boolean) {
-    setIsOpenBlend(isOpen)
-  }
-
-  console.log('isOpenBlend: ', isOpenBlend)
-
-
-const columns: TableProps<DataType>['columns'] = [
+const columns: TableProps<DataType>["columns"] = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
   },
   {
-    title: 'Source',
-    dataIndex: 'source',
-    key: 'source',
+    title: "Source",
+    dataIndex: "source",
+    key: "source",
   },
   {
-    title: 'Action',
-    key: 'action',
+    title: "Action",
+    key: "action",
     width: 200,
     render: (_, record) => (
       <Space size="middle">
-        <Button danger type="text">Delete</Button>
+        <Button danger type="text">
+          Delete
+        </Button>
       </Space>
     ),
   },
 ];
 
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      source: 'tony - tony2',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      source: 'tony - tonysql',
-    },
-  ];
+const data: DataType[] = [
+  {
+    key: "1",
+    name: "John Brown",
+    source: "tony - tony2",
+  },
+  {
+    key: "2",
+    name: "Jim Green",
+    source: "tony - tonysql",
+  },
+];
+
+function BlendExplorer() {
+  const { token } = theme.useToken();
+  const { form, openBlendExplorer, isOpenBlend } = useBlenderContext();
+  const joinAnotherStepDummyRef = React.useRef<any>(null);
 
   return (
     <>
@@ -76,10 +75,7 @@ const columns: TableProps<DataType>['columns'] = [
         <Table columns={columns} dataSource={data} />
       </div>
 
-      <div className={clsx(
-        "w-full h-full flex absolute bottom-2 left-0",
-        isOpenBlend ? 'block' : 'hidden'
-      )}>
+      <div className={clsx("w-full h-full flex absolute bottom-2 left-0", isOpenBlend ? "block" : "hidden")}>
         <div className="block">
           <div
             className="absolute top-0 left-0 right-0 bottom-0 opacity-50"
@@ -96,24 +92,86 @@ const columns: TableProps<DataType>['columns'] = [
             <div className="flex items-center justify-between border-[#E0E0E0] dark:border-[#2b2b2b] border-0 border-b-[1px] border-solid p-2">
               <b>Blend Explorer</b>
               <Popconfirm
-                  title="Close"
-                  description="Are you sure to close this blend?"
-                  onConfirm={() => openBlendExplorer(false)}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button type="text" icon={<CloseOutlined />}>Close</Button>
-                </Popconfirm>
+                title="Close"
+                description="Are you sure to close this blend?"
+                onConfirm={() => openBlendExplorer(false)}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="text" icon={<CloseOutlined />}>
+                  Close
+                </Button>
+              </Popconfirm>
             </div>
             <div className="flex h-[calc(100%-41px)]">
               <div className="flex items-start p-2 w-full overflow-auto">
-                <BlendStep />
+                <Form.List name={SOURCE}>
+                  {(fields, { add: addSource }) => {
+                    function addAnotherStep(node: string, index: number) {
+                      addSource({
+                        ...DEFAULT_SOURCE,
+                        query_step_alias: node,
+                        source_alias: `${node}_${index}`,
+                      });
+                      joinAnotherStepDummyRef.current?.createJoin();
+                    }
+                    return (
+                      <React.Fragment>
+                        {fields.map(({ key, name }, index) => (
+                          <div
+                            key={key}
+                            className="h-full"
+                            style={{
+                              order: index * 2,
+                            }}
+                          >
+                            <BlendStep name={name} form={form} />
+                          </div>
+                        ))}
+                        <div
+                          className="shrink-0"
+                          style={{
+                            order: 99999,
+                          }}
+                        >
+                          <JoinAnotheStep key={Date.now()} index={fields.length} addAnotherStep={addAnotherStep} />
+                        </div>
+                      </React.Fragment>
+                    );
+                  }}
+                </Form.List>
+                <Form.List name={JOINS}>
+                  {(fields, { add: addJoin }) => {
+                    return (
+                      <React.Fragment>
+                        {/* join configuration */}
+                        {fields.map(({ key, name: nameJoin }, index) => {
+                          return (
+                            <div
+                              key={key}
+                              className="shrink-0"
+                              style={{
+                                order: index * 2 + 1,
+                              }}
+                            >
+                              <JoinConfiguration index={index} nameJoin={nameJoin} form={form} />
+                            </div>
+                          );
+                        })}
 
-                <JoinConfiguration />
+                        {/* dummy join another step */}
+                        <JoinAnotherStepDummy ref={joinAnotherStepDummyRef} addJoin={addJoin} />
+                      </React.Fragment>
+                    );
+                  }}
+                </Form.List>
 
-                <BlendStep />
-
-                <JoinAnotheStep />
+                {/* just show to make sure the form's DIMENSIONS is registered */}
+                <Form.List name={DIMENSIONS}>
+                  {() => {
+                    return null;
+                  }}
+                </Form.List>
               </div>
 
               <div className="w-[320px] shrink-0 border-[#E0E0E0] border-[0px] border-l-[1px] dark:border-[#2b2b2b] border-solid">

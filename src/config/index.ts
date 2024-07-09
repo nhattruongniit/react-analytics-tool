@@ -5,6 +5,7 @@ export const config = {
   RECHART_HEIGHT: 500,
   DATE_FORMAT: "YYYY-MM-DD",
   VERSION: packageJSON.version,
+  PATTERN: "^[a-zA-Z0-9_]*$",
 };
 
 // url

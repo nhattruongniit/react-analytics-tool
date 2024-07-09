@@ -50,3 +50,15 @@
 .member-popover .ant-popover-inner-content {
   padding: 8px;
 }
+
+.blender-step-result .ant-row {
+  display: block;
+}
+
+.blender-step-result .ant-col {
+  text-align: left;
+}
+
+.blender-step-result .ant-form-item-control-input {
+  border-bottom: 1px solid var(--border-line);
+}
