@@ -70,11 +70,11 @@ export default function BlendDimensions({ name, schema, source }: IProps) {
               <div className="mb-1 text-[12px]">
                 <div className="font-bold mb-1">Dimensions</div>
                 {fields.map(({ key, name: nodeName }) => {
-                  const title = dataDimensions[nodeName].alias || dataDimensions[nodeName].name;
+                  const title = dataDimensions?.[nodeName].alias || dataDimensions?.[nodeName].name;
                   return (
                     <div key={key} className="blend-member flex items-center mb-1 text-[#000] h-[22px] bg-[#d9f7be]">
                       {/* edit alias name */}
-                      <BlendDimensionsPopover nodeName={nodeName} dataDimensions={dataDimensions} title={title} />
+                      <BlendDimensionsPopover nodeName={nodeName} dataDimensions={dataDimensions || []} title={title} />
 
                       <Tooltip title={title}>
                         <div className="p-1 w-full truncate">{title}</div>

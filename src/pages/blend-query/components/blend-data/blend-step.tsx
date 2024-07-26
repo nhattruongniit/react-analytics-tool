@@ -26,10 +26,15 @@ function BlendStep({ name, form }: IProps) {
   // variables
   const source: INodeBlenderItem = Form.useWatch([SOURCE, name]);
   const joins: IJoinOn[] = form.getFieldValue(JOINS) || [];
+  const sources: any[] = Form.useWatch(SOURCE) || [];
 
   // TODO: remove source
   function removeSource() {
-    console.log("remove source");
+    form.setFieldValue([SOURCE], sources.slice(0, name));
+    form.setFieldsValue({
+      [SOURCE]: sources.slice(0, name),
+      [JOINS]: joins.slice(0, name - 1),
+    });
   }
 
   return (

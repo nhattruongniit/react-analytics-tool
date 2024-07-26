@@ -13,55 +13,49 @@ import JoinAnotheStep from "./components/blend-data/join-another-step";
 import BlendResult from "./components/blend-data/blend-result";
 import JoinConfiguration from "./components/join-configuration/join-configuration";
 import JoinAnotherStepDummy from "./components/blend-data/join-another-step-dummy";
+import { IBlendData } from "@src/types/blender";
 
 interface DataType {
-  key: string;
-  name: string;
-  source: string;
+  key: number;
+  alias: string;
 }
 
-const columns: TableProps<DataType>["columns"] = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-  },
-  {
-    title: "Source",
-    dataIndex: "source",
-    key: "source",
-  },
-  {
-    title: "Action",
-    key: "action",
-    width: 200,
-    render: (_, record) => (
-      <Space size="middle">
-        <Button danger type="text">
-          Delete
-        </Button>
-      </Space>
-    ),
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    name: "John Brown",
-    source: "tony - tony2",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    source: "tony - tonysql",
-  },
-];
 
 function BlendExplorer() {
   const { token } = theme.useToken();
-  const { form, openBlendExplorer, isOpenBlend } = useBlenderContext();
+  const { form, openBlendExplorer, isOpenBlend, blendData, editBlendNode } = useBlenderContext();
   const joinAnotherStepDummyRef = React.useRef<any>(null);
+
+  const columns: TableProps<DataType>["columns"] = [
+    {
+      title: "Alias",
+      dataIndex: "alias",
+      key: "alias",
+    },
+    {
+      title: "Action",
+      key: "action",
+      width: 200,
+      render: (_, record) => {
+        const node: any = blendData?.[record.alias as keyof IBlendData];
+        return (
+          <Space size="middle">
+            <Button type="text" onClick={() => editBlendNode(node)}>
+              Edit
+            </Button>
+            <Button danger type="text">
+              Delete
+            </Button>
+          </Space>
+        )
+      }
+    },
+  ];
+
+  const dataSource: DataType[] = Object.values(blendData || {}).map((blend: any, index) => ({
+    key: index,
+    alias: blend.alias as string
+  }))
 
   return (
     <>
@@ -72,7 +66,7 @@ function BlendExplorer() {
       </div>
 
       <div className="p-2.5">
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={dataSource} />
       </div>
 
       <div className={clsx("w-full h-full flex absolute bottom-2 left-0", isOpenBlend ? "block" : "hidden")}>
@@ -134,7 +128,7 @@ function BlendExplorer() {
                             order: 99999,
                           }}
                         >
-                          <JoinAnotheStep key={Date.now()} index={fields.length} addAnotherStep={addAnotherStep} />
+                          <JoinAnotheStep index={fields.length} addAnotherStep={addAnotherStep} />
                         </div>
                       </React.Fragment>
                     );

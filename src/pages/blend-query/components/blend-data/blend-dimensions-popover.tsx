@@ -26,7 +26,7 @@ export default function BlendDimensionsPopover({ nodeName, dataDimensions, title
               </Form.Item>
             </div>
             <div className="text-[10px]">
-              Source field: <b>{dataDimensions[nodeName].name}</b>
+              Source field: <b>{dataDimensions?.[nodeName]?.name}</b>
             </div>
           </div>
         </div>

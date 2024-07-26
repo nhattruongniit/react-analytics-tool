@@ -51,7 +51,7 @@ function JoinAnotheStep({ index, addAnotherStep }: IProps) {
             {nodeOptions
               .filter((node) => node.toLowerCase().indexOf(debouncedSearchValue.toLowerCase()) > -1)
               .map((node) => (
-                <div className="max-h-[200px] overflow-auto" onClick={() => _addAnotherStep(node)}>
+                <div key={node} className="max-h-[200px] overflow-auto" onClick={() => _addAnotherStep(node)}>
                   <div className="border-[#E0E0E0] dark:border-[#2b2b2b] border-[1px] rounded-md border-solid mb-1 cursor-pointer py-1 px-2 flex items-center hover:bg-gray-100 dark:hover:bg-black">
                     <NodeIndexOutlined className="mr-2" />
                     {node}
